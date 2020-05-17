@@ -22,7 +22,7 @@ class ThreadRanker(object):
         """
         thread_ids, thread_embeddings = self.__load_embeddings_by_tag(tag_name)
 
-        # HINT: you have already implemented a similar routine in the 3rd assignment.
+        # using pre-trained embeddings to convert encode question
         
         question_vec = question_to_vec(question, self.word_embeddings, self.embeddings_dim)#### YOUR CODE HERE ####
         best_thread = pairwise_distances_argmin([question_vec], thread_embeddings, metric='cosine')#### YOUR CODE HERE ####
@@ -46,11 +46,6 @@ class DialogueManager(object):
 
     def create_chitchat_bot(self):
         """Initializes self.chitchat_bot with some conversational model."""
-
-        # Hint: you might want to create and train chatterbot.ChatBot here.
-        # It could be done by creating ChatBot with the *trainer* parameter equals 
-        # "chatterbot.trainers.ChatterBotCorpusTrainer"
-        # and then calling *train* function with "chatterbot.corpus.english" param
         
         self.english_bot = ChatBot("Chatterbot", storage_adapter="chatterbot.storage.SQLStorageAdapter")
         trainer = ChatterBotCorpusTrainer(self.english_bot)
@@ -60,7 +55,7 @@ class DialogueManager(object):
         """Combines stackoverflow and chitchat parts using intent recognition."""
 
         # Recognize intent of the question using `intent_recognizer`.
-        # Don't forget to prepare question and calculate features for the question.
+        # before that get TF-IDF encoding for the input text.
         
         prepared_question = text_prepare(question)#### YOUR CODE HERE ####
         features = self.tfidf_vectorizer.transform([prepared_question])#### YOUR CODE HERE ####
