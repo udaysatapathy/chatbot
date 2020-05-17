@@ -79,19 +79,12 @@ def main():
             return
         token = os.environ["TELEGRAM_TOKEN"]
 
-    #################################################################
-    
-    # Your task is to complete dialogue_manager.py and use your 
-    # advanced DialogueManager instead of SimpleDialogueManager. 
-    
-    # This is the point where you plug it into the Telegram bot. 
-    # Do not forget to import all needed dependencies when you do so.
+    # building advanced one on top of the simple dialog manager
     
     advanced_dialog_manager = DialogueManager(RESOURCE_PATH)
     advanced_dialog_manager.create_chitchat_bot()
     bot = BotHandler(token, advanced_dialog_manager)
     
-    ###############################################################
 
     print("Ready to talk!")
     offset = 0
